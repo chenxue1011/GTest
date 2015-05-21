@@ -1,0 +1,19 @@
+D:\Work\Code\GolukTest\bin\classes.dex : \
+D:\Work\Code\GolukTest\bin\classes\com\goluk\common\Common.class \
+D:\Work\Code\GolukTest\bin\classes\com\goluk\functiontest\HotTest.class \
+D:\Work\Code\GolukTest\bin\classes\com\goluk\testcases\checkuitest.class \
+D:\Work\Code\GolukTest\bin\classes\com\goluk\testcases\DownloadEmergencyVideoTest.class \
+D:\Work\Code\GolukTest\bin\classes\com\goluk\testcases\DownloadFavoriteVideoTest.class \
+D:\Work\Code\GolukTest\bin\classes\com\goluk\testcases\DownloadLoopVideoTest.class \
+D:\Work\Code\GolukTest\bin\classes\com\goluk\testcases\PlayEmergencyVideoTest.class \
+D:\Work\Code\GolukTest\bin\classes\com\goluk\testcases\PlayFavoriteVideoTest.class \
+D:\Work\Code\GolukTest\bin\classes\com\goluk\testcases\PlayLocalEmergencyVideoTest.class \
+D:\Work\Code\GolukTest\bin\classes\com\goluk\testcases\PlayLocalFavoriteVideoTest.class \
+D:\Work\Code\GolukTest\bin\classes\com\goluk\testcases\PlayLocalLoopVideoTest.class \
+D:\Work\Code\GolukTest\bin\classes\com\goluk\testcases\PlayLoopVideoTest.class \
+D:\Work\Code\GolukTest\bin\classes\com\goluk\testcases\PreviewTest.class \
+D:\Work\Code\GolukTest\bin\classes\com\goluk\testcases\RequestFavoriteVideoTest.class \
+D:\Work\Code\GolukTest\bin\classes\com\goluk\testcases\RequestLiveTest.class \
+D:\Work\Code\GolukTest\bin\classes\com\goluk\testcases\ShareEmergencyVideoTest.class \
+D:\Work\Code\GolukTest\bin\classes\com\goluk\testcases\ShareFavoriteVideoTest.class \
+D:\Work\Code\GolukTest\bin\classes\com\goluk\testcases\testSuite.class \
