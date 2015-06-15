@@ -28,6 +28,10 @@ public class RequestLiveTest extends UiAutomatorTestCase {
 			int wait=1;
 			UiObject waitNote=Common.findViewById2(in, "android:id/message");
 			while(wait<60){
+				UiObject tryAgain=Common.findViewById2(in, "android:id/button1");
+				if(tryAgain.exists()){
+					tryAgain.clickAndWaitForNewWindow();
+				}
 				if(waitNote.exists()){
 					sleep(1000);
 					Common.infoLog(runcase, "Waiting the time "+wait+"s");

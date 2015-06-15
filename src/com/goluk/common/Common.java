@@ -24,14 +24,27 @@ public class Common {
 	public final static String TestResult="[Test Result]: ";
 	public final static String FailReason="[Fail Reason]: ";
 	//小米4
-	//public final static int[][] al = { { 268, 598 }, { 768, 573 }, { 276, 922 }, { 779, 919 },
-		//	{ 279, 1186 }, { 751, 1204 }, { 303, 1506 },{752,1471} };
-	//public final static int[] idlelocation={930,1375};
+//	public final static int[][] al = { { 268, 598 }, { 768, 573 }, { 276, 922 }, { 779, 919 },
+//			{ 279, 1186 }, { 751, 1204 }, { 303, 1506 },{752,1471} };
+//	public final static int[] idlelocation={930,1375};
+//	public final static int[] pause={123,1003};
 	//小米Note
-	public final static int[][] al = { { 268, 598 }, { 768, 573 }, { 276, 922 }, { 779, 919 },
-		{ 279, 1186 }, { 751, 1204 }, { 303, 1506 },{752,1471} };
-	public final static int[] idlelocation={935,1514};
-	public final static int[] pause={118,949};
+//	public final static int[][] al = { { 268, 598 }, { 768, 573 }, { 276, 922 }, { 779, 919 },
+//		{ 279, 1186 }, { 751, 1204 }, { 303, 1506 },{752,1471} };
+//	public final static int[] idlelocation={935,1514};
+//	public final static int[] pause={118,949};
+// 三星
+//	public final static int[][] al = { { 268, 598 }, { 768, 573 }, { 276, 922 }, { 779, 919 },
+//		{ 279, 1186 }, { 751, 1204 }, { 303, 1506 },{752,1471} };
+//	public final static int[] idlelocation={928,1234};
+//	public final static int[] pause={118,949};
+	
+	 //魅蓝Note
+		public final static int[][] al = { { 274, 612 }, { 811,583 }, { 283,896 }, { 738,935 },
+			{ 280,1201 }, { 808,1199 }, { 262,1525 },{ 762,1524 } };
+		public final static int[] idlelocation={908,1282};
+		public final static int[] pause={141,969};
+	
 	
 	public final static String[] filterName = {"无","清新淡雅","黑白经典","多彩夏日","复古怀旧","缤纷梦幻","柔和静谧","古典胶片"};
 	// Open the activity
@@ -51,23 +64,42 @@ public class Common {
 		int y = idlelocation[1];
 		device.click(x, y);
 		waitTime(2);
-		skipDownloadnote(runcase,device);
+		//skipDownloadnote(runcase,device);
+		//skipUpdatenote(runcase,device);
+		waitTime(2);
 		UiObject object = findViewById2(device,resourceid);
-		if (object.exists()) {
-			infoLog(runcase,TestInfo + "Open Goluk");
-		} else {
-			infoLog(runcase,TestInfo + "Open Failed, try again1");
-			device.pressHome();
-			waitTime(5);
-			device.click(x, y);
+		int i=1;
+		while(i<30){
+			UiObject liveCancelBtn=Common.findViewByText2(device, "取消");
+			if(liveCancelBtn.exists()){
+				liveCancelBtn.clickAndWaitForNewWindow();
+			}
+			if (object.exists()) {
+				infoLog(runcase,TestInfo + "The Goluk has been Open");
+				break;
+			} else {
+				infoLog(runcase,TestInfo + "Goluk is loading "+i+"s");
+				waitTime(1);
+				i++;
+			}
 		}
-		waitTime(10);
-		skipDownloadnote(runcase,device);
+		waitTime(3);
+		//skipDownloadnote(runcase,device);
+		UiObject liveCancelBtn=Common.findViewByText2(device, "取消");
+		if(liveCancelBtn.exists()){
+			liveCancelBtn.clickAndWaitForNewWindow();
+		}
 		if (object.exists()) {
-			infoLog(runcase,TestInfo + "Open Goluk");
+			//infoLog(runcase,TestInfo + "The Goluk has been Open");
 		}else{
-			throw new Exception(FailedTestInfo
-					+ "Goluk open failed, please check it");
+			backToHome(runcase, device);
+			infoLog(runcase,TestInfo + "The Goluk has been Open failed, try again.");
+			device.click(x, y);
+			waitTime(10);
+			if(!object.exists()){
+				throw new Exception(FailedTestInfo
+						+ "Goluk open failed, please check it");
+			}
 		}
 	}
 
@@ -110,6 +142,18 @@ public class Common {
 			infoLog(runcase, TestClick+"Click the Cancel Button");
 		}else{
 			infoLog(runcase, TestInfo+"Not Exist the Download Note");
+		}
+		
+	}
+	public static void skipUpdatenote(String runcase,UiDevice devices) throws UiObjectNotFoundException{
+		UiObject object=new UiObject(new UiSelector().resourceIdMatches("android:id/button1"));
+		waitTime(2);
+		if(object.exists()){
+			infoLog(runcase, TestInfo+"Find the Update Note");
+			object.click();
+			infoLog(runcase, TestClick+"Click the Cancel Button");
+		}else{
+			infoLog(runcase, TestInfo+"Not Exist the Update Note");
 		}
 		
 	}
@@ -357,7 +401,7 @@ public class Common {
 	//判断是否已连接IPC
 	public static void connectWifi(String runcase,UiDevice device, String text)
 			throws Exception {
-		waitTime(10);
+		waitTime(2);
 		int waitIPCConnect=1;
 		while(waitIPCConnect<31){
 			UiObject wifi=Common.findViewByText2(device, text);

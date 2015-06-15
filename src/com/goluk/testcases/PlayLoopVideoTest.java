@@ -22,6 +22,9 @@ public class PlayLoopVideoTest extends UiAutomatorTestCase {
 			sleep(2000);
 			//点击IPC连接按钮
 			Common.clickViewById(runcase, in, "cn.com.mobnote.golukmobile:id/index_carrecoder_btn");
+			sleep(2000);
+			Common.clickViewById(runcase, in, "cn.com.mobnote.golukmobile:id/mPlayBtn");
+			sleep(2000);
 			int i=1;
 			UiObject waitingnote=Common.findViewById2(in, "cn.com.mobnote.golukmobile:id/mLoading");
 			while(i<16){

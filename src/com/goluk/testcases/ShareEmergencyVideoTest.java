@@ -24,7 +24,7 @@ public class ShareEmergencyVideoTest extends UiAutomatorTestCase {
 			Common.clickViewById(runcase, in, "cn.com.mobnote.golukmobile:id/share_local_video_btn");
 			//点击紧急视频
 			Common.clickViewById(runcase, in, "cn.com.mobnote.golukmobile:id/video_jjyx");
-			Common.selectVideoFilter(runcase, in,60);
+			Common.selectVideoFilter(runcase, in,90);
 			
 			Common.backToHome(runcase,in);
 			Common.passcase(runcase);
