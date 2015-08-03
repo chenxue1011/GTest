@@ -23,11 +23,11 @@ public class Common {
 	public final static String FailedTestInfo = "[Test Step Failed]: ";
 	public final static String TestResult="[Test Result]: ";
 	public final static String FailReason="[Fail Reason]: ";
-	//小米4
-//	public final static int[][] al = { { 268, 598 }, { 768, 573 }, { 276, 922 }, { 779, 919 },
-//			{ 279, 1186 }, { 751, 1204 }, { 303, 1506 },{752,1471} };
-//	public final static int[] idlelocation={930,1375};
-//	public final static int[] pause={123,1003};
+	//华为MT7
+//	public final static int[][] al = { { 253, 603 }, { 782, 581 }, { 252, 930 }, { 772, 930 },
+//			{ 276, 1190 }, { 814, 2101 }, { 295, 1493 },{901,1542} };
+//	public final static int[] idlelocation={958,1360};
+//	public final static int[] pause={136,960};
 	//小米Note
 //	public final static int[][] al = { { 268, 598 }, { 768, 573 }, { 276, 922 }, { 779, 919 },
 //		{ 279, 1186 }, { 751, 1204 }, { 303, 1506 },{752,1471} };
@@ -60,17 +60,17 @@ public class Common {
 
 	public static void openActivity(String runcase,UiDevice device, String resourceid)
 			throws Exception {
+		//点击启动App
 		int x = idlelocation[0];
 		int y = idlelocation[1];
 		device.click(x, y);
 		waitTime(2);
 		//skipDownloadnote(runcase,device);
 		//skipUpdatenote(runcase,device);
-		waitTime(2);
 		UiObject object = findViewById2(device,resourceid);
 		int i=1;
 		while(i<30){
-			UiObject liveCancelBtn=Common.findViewByText2(device, "取消");
+			UiObject liveCancelBtn=findViewByText2(device, "取消");
 			if(liveCancelBtn.exists()){
 				liveCancelBtn.clickAndWaitForNewWindow();
 			}
@@ -397,13 +397,111 @@ public class Common {
 				}
 			}
 	}
+	// Play Video
+		public static void playVideo2(String runcase,UiDevice device, String resourceid,int loadtime) {
+			for (int n = 0; n < al.length; n++) {
+				infoLog(runcase,TestInfo+"The " + (n+1) + " video has been click");
+				int ax = al[n][0];
+				int ay = al[n][1];
+				device.click(ax, ay);
+				waitTime(2);
+				UiObject obj;
+				try {
+					UiObject playView =findViewById2(device,"cn.com.mobnote.golukmobile:id/videoview");
 
+					waitTime(3);
+					if(playView.exists()){
+						infoLog(runcase,TestInfo+"In Play Screen");
+						obj = findViewById2(device,resourceid);
+						if (obj.exists()) {
+							infoLog(runcase,TestInfo+"Prepare playing...");
+							int nloadtime=1;
+							while (obj.exists()&& nloadtime<loadtime) {
+								waitTime(1);
+								infoLog(runcase,TestInfo+"Waiting "+nloadtime+"s");
+								nloadtime++;					
+							}
+							if(nloadtime==loadtime){
+								infoLog(runcase,TestInfo+"Loading Timeout");
+								device.pressBack();
+								waitTime(2);
+								throw new Exception("Play Video loading timeout");
+							}else{
+								infoLog(runcase,TestInfo+"Playing new video...");
+								waitTime(10);
+								device.click(pause[0], pause[1]);
+								waitTime(2);
+								device.click(pause[0], pause[1]);
+								waitTime(5);
+								infoLog(runcase,TestInfo+"Playing End ");
+								waitTime(1);
+								checkIPCConnect(runcase, device);
+							}
+							device.pressBack();
+							waitTime(2);
+						}else{
+							infoLog(runcase,TestInfo+"Playing new Video...");
+							waitTime(2);
+							UiObject playView2=findViewById(runcase,device,"cn.com.mobnote.golukmobile:id/videoview");
+							waitTime(2);
+							if(playView2.exists()){
+								waitTime(10);
+								device.click(pause[0], pause[1]);
+								waitTime(1);
+								infoLog(runcase, TestInfo+"Click the Pause Btn");
+								device.click(pause[0], pause[1]);
+								infoLog(runcase, TestInfo+"The video is playing");
+								device.pressBack();
+							}
+							infoLog(runcase,TestInfo+"Playing End ");
+							checkIPCConnect(runcase, device);
+							waitTime(5);
+						}
+						}else{
+							infoLog(runcase,TestInfo+"No Video in this part");
+							System.out.println("No Video in this part");
+						}
+					} catch (Exception e) {
+						infoLog(runcase,e.getMessage());
+					}
+				}
+		}
+		//播放视频广场/热门视频
+		public static void playSquareVide(String runcase,UiDevice device) {
+			//选择一个视频
+			try {
+				Common.clickViewById(runcase, device, "cn.com.mobnote.golukmobile:id/mPlayerLayout");
+				waitTime(5);
+				int waittime=1;
+				while (waittime<60){
+					//判断加载等待提示是否存在，如果存在等待，60秒超时后提示网络问题
+					UiObject waitNote = Common.findViewById2(device, "cn.com.mobnote.golukmobile:id/mLoading");
+					if(waitNote.exists()){
+						infoLog(runcase,"等待热门/广场视频加载中... "+waittime+" 秒");
+						waittime=waittime+1;
+						waitTime(1);
+					}else{
+						//如果加载等待提示不存在，认为开始播放,播放20秒后，返回
+						infoLog(runcase,"热门/广场视频加载完成，开始播放,播放20秒后返回");
+						waitTime(20);
+						device.pressBack();
+						break;
+					}
+				}
+				if (waittime==60){
+					infoLog(runcase,"热门/广场视频加载超过60秒，请检查网络");
+					device.pressBack();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	//判断是否已连接IPC
 	public static void connectWifi(String runcase,UiDevice device, String text)
 			throws Exception {
 		waitTime(2);
 		int waitIPCConnect=1;
-		while(waitIPCConnect<31){
+		while(waitIPCConnect<121){
 			UiObject wifi=Common.findViewByText2(device, text);
 			if(wifi.exists()){
 				infoLog(runcase,TestInfo+"The IPC is connected");
@@ -414,8 +512,8 @@ public class Common {
 				waitIPCConnect++;
 			}
 		}
-		if(waitIPCConnect==30){
-			throw new Exception("The IPC connected Time out for 15s");
+		if(waitIPCConnect==121){
+			throw new Exception("The IPC connected Time out for 120s");
 		}
 		//skipDownloadnote(runcase,device);
 	}
@@ -579,12 +677,30 @@ public static void selectVideoFilter(String runcase,UiDevice devices,int hanldti
 		}
 		return s;
 	}
-	public static void scrollDown(String runcase,UiDevice device){
-		device.swipe(557, 721, 557, 1653, 10);
-		infoLog(runcase,TestInfo+"Scroll Down");
+	public static void scrollDown(String runcase,UiDevice device, String className, int scrollTime){
+		UiScrollable object = new UiScrollable(
+				new UiSelector().className(className));
+		try {
+			for(int i=0;i<scrollTime;i++){
+				object.scrollBackward(8);
+			}
+			
+		} catch (UiObjectNotFoundException e) {
+			e.printStackTrace();
+		}
+		infoLog(runcase,TestInfo+"Scroll Up");
 	}
-	public static void scrollUp(String runcase,UiDevice device){
-		device.swipe(557, 1653, 557, 721, 10);
+	public static void scrollUp(String runcase,UiDevice device, String className, int scrollTime){
+		UiScrollable object = new UiScrollable(
+				new UiSelector().className(className));
+		try {
+			for(int i=0;i<scrollTime;i++){
+				object.scrollForward();
+			}
+			
+		} catch (UiObjectNotFoundException e) {
+			e.printStackTrace();
+		}
 		infoLog(runcase,TestInfo+"Scroll Down");
 	}
 	

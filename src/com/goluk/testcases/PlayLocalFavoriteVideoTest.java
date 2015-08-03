@@ -43,7 +43,7 @@ public class PlayLocalFavoriteVideoTest extends UiAutomatorTestCase {
 			sleep(2000);
 			for(int nPlayCount=1;nPlayCount<3;nPlayCount++){
 				Common.infoLog(runcase,"The "+nPlayCount+" Page");
-				Common.playVideo(runcase,in,"cn.com.mobnote.golukmobile:id/mLoading",5);
+				Common.playVideo2(runcase,in,"cn.com.mobnote.golukmobile:id/mLoading",5);
 				us.scrollForward();
 			}
 			Common.backToHome(runcase,in);

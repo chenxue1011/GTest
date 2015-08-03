@@ -32,12 +32,12 @@ public class VideoSquareTest extends UiAutomatorTestCase {
 				while(waittime<31){
 					UiObject title=Common.findViewById2(in, "cn.com.mobnote.golukmobile:id/title_layout");
 					if(title.exists()){
-						Common.scrollDown(runcase, in, "android.widget.ListView", 5, 8);
+						Common.scrollDown(runcase, in, "android.widget.ListView", 5);
 						for(int y=1;y<5;y++){
 							Common.infoLog(runcase, "Play the "+item[i]+" "+y+" times Video");
 							Common.playSquareVide(runcase, in);
 							sleep(1000);
-							Common.scrollUp(runcase, in, "android.widget.ListView", 1, 8);
+							Common.scrollUp(runcase, in, "android.widget.ListView", 2);
 							}
 						waittime=31;
 					}else{

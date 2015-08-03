@@ -21,12 +21,12 @@ public class VideoHotTest extends UiAutomatorTestCase {
 			//选择热门
 			Common.clickViewById(runcase, in, "cn.com.mobnote.golukmobile:id/hot_title");
 			//下拉刷新
-			Common.scrollDown(runcase, in, "android.widget.ListView", 5, 8);
+			Common.scrollDown(runcase, in, "android.widget.ListView", 5);
 			sleep(5000);
 			for(int i=1;i<6;i++){
 				Common.infoLog(runcase, "Play the "+i+" times");
 				Common.playSquareVide(runcase, in);
-				Common.scrollUp(runcase, in, "android.widget.ListView", 1, 8);
+				Common.scrollUp(runcase, in, "android.widget.ListView", 2);
 			}
 			
 			Common.backToHome(runcase,in);
