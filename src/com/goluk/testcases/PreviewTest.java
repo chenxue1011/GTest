@@ -52,7 +52,7 @@ public class PreviewTest extends UiAutomatorTestCase {
 			Common.takeScreen(in, runcase,str);
 			System.out.println("The screen save in /sdcard/GolukTest/"+runcase+"/"+str+".png");
 			String s=null;
-			s=Common.checkFailReason(in, e.getMessage());
+			s=Common.checkFailReason(runcase,in, e.getMessage());
 			Common.errorLog(runcase,s);
 			Common.failcase(runcase);
 			Common.startLog(runcase,"*****End to run "+runcase+" *****");

@@ -15,9 +15,9 @@ public class ShareFavoriteVideoTest extends UiAutomatorTestCase {
 		try{
 			Common.startLog(runcase,"*****Start to run "+runcase+" *****");
 			Common.openActivity(runcase,in,"cn.com.mobnote.golukmobile:id/index_carrecoder_btn");
-			sleep(4000);
-			Common.connectWifi(runcase,in, "已连接Goluk");
 			sleep(2000);
+			Common.connectWifi(runcase,in, "已连接Goluk");
+			sleep(1000);
 			//点击分享
 			Common.clickViewById(runcase, in, "cn.com.mobnote.golukmobile:id/index_share_btn");
 			//点击分享精彩视频
@@ -34,12 +34,12 @@ public class ShareFavoriteVideoTest extends UiAutomatorTestCase {
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
 			Date curDate = new Date(System.currentTimeMillis());
 			String str = formatter.format(curDate);
-			Common.infoLog(runcase,"The screen save in /sdcard/GolukTest/"+runcase+"/"+str+".png");
+			Common.infoLog(runcase,"截图存储在 /sdcard/GolukTest/"+runcase+"/"+str+".png");
 			Common.takeScreen(in, runcase,str);
 			sleep(5000);
 			Common.takeBugReport(runcase, str);
 			String s=null;
-			s=Common.checkFailReason(in, e.getMessage());
+			s=Common.checkFailReason(runcase,in, e.getMessage());
 			Common.errorLog(runcase,s);
 			Common.failcase(runcase);
 			Common.backToHome(runcase,in);

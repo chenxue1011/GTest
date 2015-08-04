@@ -28,7 +28,7 @@ public class PlayLocalFavoriteVideoTest extends UiAutomatorTestCase {
 			while(waitforloopvideolist<15){
 				if(loopvideolistwaitnote.exists()){
 					sleep(1000);
-					Common.infoLog(runcase,"Loading Preview"+waitforloopvideolist+"sec");
+					Common.infoLog(runcase,"加载本地循环影像列表"+waitforloopvideolist+"秒");
 				}else{
 					break;
 				}
@@ -37,13 +37,13 @@ public class PlayLocalFavoriteVideoTest extends UiAutomatorTestCase {
 			sleep(2000);
 			
 			Common.clickViewById(runcase,in, "cn.com.mobnote.golukmobile:id/video_jcsp");
-			Common.infoLog(runcase,"Start to Play Local Favorite Video");
-			sleep(5000);
+			Common.infoLog(runcase,"开始执行播放本地精彩视频影像测试用例");
+			sleep(2000);
 			UiScrollable us=Common.findScrollViewById(runcase,in, "cn.com.mobnote.golukmobile:id/mWonderfulVideoList");
 			sleep(2000);
 			for(int nPlayCount=1;nPlayCount<3;nPlayCount++){
-				Common.infoLog(runcase,"The "+nPlayCount+" Page");
-				Common.playVideo2(runcase,in,"cn.com.mobnote.golukmobile:id/mLoading",5);
+				Common.infoLog(runcase,"第 "+nPlayCount+" 页");
+				Common.playVideo(runcase,in,"cn.com.mobnote.golukmobile:id/videoview",5);
 				us.scrollForward();
 			}
 			Common.backToHome(runcase,in);
@@ -53,10 +53,10 @@ public class PlayLocalFavoriteVideoTest extends UiAutomatorTestCase {
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
 			Date curDate = new Date(System.currentTimeMillis());
 			String str = formatter.format(curDate);
-			Common.infoLog(runcase,"The screen save in /sdcard/GolukTest/"+runcase+"/"+str+".png");
+			Common.infoLog(runcase,"截图存储在 /sdcard/GolukTest/"+runcase+"/"+str+".png");
 			Common.takeScreen(in, runcase,str);
 			String s=null;
-			s=Common.checkFailReason(in, e.getMessage());
+			s=Common.checkFailReason(runcase,in, e.getMessage());
 			Common.errorLog(runcase,s);
 			Common.failcase(runcase);
 			Common.startLog(runcase,"*****End to run "+runcase+" *****");

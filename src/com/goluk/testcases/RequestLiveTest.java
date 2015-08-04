@@ -16,9 +16,9 @@ public class RequestLiveTest extends UiAutomatorTestCase {
 		try{
 			Common.startLog(runcase,"*****Start to run "+runcase+" *****");
 			Common.openActivity(runcase,in,"cn.com.mobnote.golukmobile:id/index_carrecoder_btn");
-			sleep(4000);
-			Common.connectWifi(runcase,in, "已连接Goluk");
 			sleep(2000);
+			Common.connectWifi(runcase,in, "已连接Goluk");
+			sleep(1000);
 			//点击分享
 			Common.clickViewById(runcase, in, "cn.com.mobnote.golukmobile:id/index_share_btn");
 			//点击分享网络直播
@@ -34,10 +34,10 @@ public class RequestLiveTest extends UiAutomatorTestCase {
 				}
 				if(waitNote.exists()){
 					sleep(1000);
-					Common.infoLog(runcase, "Waiting the time "+wait+"s");
+					Common.infoLog(runcase, "发起直播等待 "+wait+"秒");
 					wait++;
 				}else{
-					Common.infoLog(runcase, "Start to Live 5s");
+					Common.infoLog(runcase, "发起直播，直播5秒");
 					sleep(5000);
 					//点击退出直播按钮
 					Common.clickViewById(runcase, in, "cn.com.mobnote.golukmobile:id/live_exit_btn");
@@ -47,7 +47,7 @@ public class RequestLiveTest extends UiAutomatorTestCase {
 				}
 			}
 			if(wait==60){
-				throw new Exception("Live loading time out 60s");
+				throw new Exception("直播发起超时60秒，失败");
 			}
 			
 			Common.backToHome(runcase,in);
@@ -57,12 +57,12 @@ public class RequestLiveTest extends UiAutomatorTestCase {
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
 			Date curDate = new Date(System.currentTimeMillis());
 			String str = formatter.format(curDate);
-			Common.infoLog(runcase,"The screen save in /sdcard/GolukTest/"+runcase+"/"+str+".png");
+			Common.infoLog(runcase,"截图存储在 /sdcard/GolukTest/"+runcase+"/"+str+".png");
 			Common.takeScreen(in, runcase,str);
 			sleep(5000);
 			Common.takeBugReport(runcase, str);
 			String s=null;
-			s=Common.checkFailReason(in, e.getMessage());
+			s=Common.checkFailReason(runcase,in, e.getMessage());
 			Common.errorLog(runcase,s);
 			Common.failcase(runcase);
 			Common.startLog(runcase,"*****End to run "+runcase+" *****");

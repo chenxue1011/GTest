@@ -18,65 +18,63 @@ public class DownloadFavoriteVideoTest extends UiAutomatorTestCase {
 			Common.startLog(runcase,"*****Start to run "+runcase+" *****");
 			//通过是否有IPC按钮判断是否进入
 			Common.openActivity(runcase,in,"cn.com.mobnote.golukmobile:id/index_carrecoder_btn");
-			sleep(3000);
-			Common.connectWifi(runcase,in, "已连接Goluk");
 			sleep(2000);
+			Common.connectWifi(runcase,in, "已连接Goluk");
+			sleep(1000);
 			//点击IPC连接按钮
 			Common.clickViewById(runcase, in, "cn.com.mobnote.golukmobile:id/index_carrecoder_btn");
-			sleep(2000);
+			sleep(1000);
 			Common.clickViewById(runcase, in, "cn.com.mobnote.golukmobile:id/mPlayBtn");
-			sleep(2000);
+			sleep(1000);
 			int i=1;
 			UiObject waitingnote=Common.findViewById2(in, "cn.com.mobnote.golukmobile:id/mLoading");
 			while(i<16){
 				if(waitingnote.exists()){
 					sleep(1000);
-					Common.infoLog(runcase,"Loading Preview"+i+"sec");
+					Common.infoLog(runcase,"视频预览加载第 "+i+" 秒");
 				}else{
-					Common.infoLog(runcase,"Loading Finish");
+					Common.infoLog(runcase,"加载完成，预览成功");
 					sleep(1000);
 					break;
 				}
 				i++;
 			}
-			if(i==15){
-				throw new Exception("Loading more than 15s");
+			if(i==16){
+				throw new Exception("视频预览加载超时"+i+"秒，失败");
 			}
 			//选择IPC文件管理
 			Common.clickViewById(runcase, in, "cn.com.mobnote.golukmobile:id/mFileLayout");
-			sleep(2000);
-			
-			Common.infoLog(runcase,"Start Download from Favorite Video");
+			sleep(1000);
 			UiObject loopvideolistwaitnote=Common.findViewById2(in, "cn.com.mobnote.golukmobile:id/mProgressBar");
 			int waitforloopvideolist=1;
 			while(waitforloopvideolist<15){
 				if(loopvideolistwaitnote.exists()){
-					Common.infoLog(runcase,"Loading loop video list"+waitforloopvideolist+"s");
+					Common.infoLog(runcase,"加载远程循环影像列表第 "+waitforloopvideolist+"秒");
 					sleep(1000);
 				}else{
 					break;
 				}
 				waitforloopvideolist++;
 			}
-			sleep(2000);
-			//进入精彩视频
+			sleep(1000);
+			Common.infoLog(runcase,"开始下载精彩视频测试用例");
 			Common.entryVideoList(runcase,in,"cn.com.mobnote.golukmobile:id/video_jcsp");
 			UiObject favoritevideolistwaitnote=Common.findViewById2(in, "cn.com.mobnote.golukmobile:id/mProgressBar");
-			waitforloopvideolist=1;
-			while(waitforloopvideolist<11){
+			int waitforfavoritevideolist=1;
+			while(waitforfavoritevideolist<11){
 				if(favoritevideolistwaitnote.exists()){
-					Common.infoLog(runcase,"Loading favorite video list"+waitforloopvideolist+"s");
+					Common.infoLog(runcase,"加载远程精彩视频列表第"+waitforfavoritevideolist+"秒");
 					sleep(1000);
 				}else{
 					break;
 				}
-				waitforloopvideolist++;
+				waitforfavoritevideolist++;
 			}
-			sleep(2000);
+			sleep(1000);
 			UiScrollable us=Common.findScrollViewById(runcase,in, "cn.com.mobnote.golukmobile:id/mWonderfulVideoList");
 			sleep(2000);
 			for(int nPlayCount=1;nPlayCount<3;nPlayCount++){
-				Common.infoLog(runcase,"The "+nPlayCount+" Page");
+				Common.infoLog(runcase,"第 "+nPlayCount+" 页");
 				Common.downloadVideo(runcase,in,"cn.com.mobnote.golukmobile:id/mEditBtn");
 				sleep(5000);
 				us.scrollForward();
@@ -89,12 +87,12 @@ public class DownloadFavoriteVideoTest extends UiAutomatorTestCase {
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
 			Date curDate = new Date(System.currentTimeMillis());
 			String str = formatter.format(curDate);
-			Common.infoLog(runcase,"The screen save in /sdcard/GolukTest/"+runcase+"/"+str+".png");
+			Common.infoLog(runcase,"截图保存在 /sdcard/GolukTest/"+runcase+"/"+str+".png");
 			Common.takeScreen(in, runcase,str);
 			sleep(2000);
 			//Common.takeBugReport(runcase, str);
 			String s=null;
-			s=Common.checkFailReason(in, e.getMessage());
+			s=Common.checkFailReason(runcase,in, e.getMessage());
 			Common.backToHome(runcase,in);
 			Common.errorLog(runcase,s);
 			Common.failcase(runcase);

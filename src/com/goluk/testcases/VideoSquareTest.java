@@ -34,14 +34,14 @@ public class VideoSquareTest extends UiAutomatorTestCase {
 					if(title.exists()){
 						Common.scrollDown(runcase, in, "android.widget.ListView", 5);
 						for(int y=1;y<5;y++){
-							Common.infoLog(runcase, "Play the "+item[i]+" "+y+" times Video");
+							Common.infoLog(runcase, "播放第"+item[i]+" 的"+y+" 次视频");
 							Common.playSquareVide(runcase, in);
 							sleep(1000);
 							Common.scrollUp(runcase, in, "android.widget.ListView", 2);
 							}
 						waittime=31;
 					}else{
-						Common.infoLog(runcase, "Loading "+waittime+"s");
+						Common.infoLog(runcase, "正在加载 "+waittime+"秒");
 						sleep(1000);
 						waittime=waittime+1;
 					}
@@ -56,10 +56,10 @@ public class VideoSquareTest extends UiAutomatorTestCase {
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
 			Date curDate = new Date(System.currentTimeMillis());
 			String str = formatter.format(curDate);
-			Common.infoLog(runcase,"The screen save in /sdcard/GolukTest/"+runcase+"/"+str+".png");
+			Common.infoLog(runcase,"截图存储在 /sdcard/GolukTest/"+runcase+"/"+str+".png");
 			Common.takeScreen(in, runcase,str);
 			String s=null;
-			s=Common.checkFailReason(in, e.getMessage());
+			s=Common.checkFailReason(runcase,in, e.getMessage());
 			Common.errorLog(runcase,s);
 			Common.failcase(runcase);
 			Common.startLog(runcase,"*****End to run "+runcase+" *****");

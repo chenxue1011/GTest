@@ -24,7 +24,7 @@ public class VideoHotTest extends UiAutomatorTestCase {
 			Common.scrollDown(runcase, in, "android.widget.ListView", 5);
 			sleep(5000);
 			for(int i=1;i<6;i++){
-				Common.infoLog(runcase, "Play the "+i+" times");
+				Common.infoLog(runcase, "第 "+i+" 次播放");
 				Common.playSquareVide(runcase, in);
 				Common.scrollUp(runcase, in, "android.widget.ListView", 2);
 			}
@@ -36,10 +36,10 @@ public class VideoHotTest extends UiAutomatorTestCase {
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
 			Date curDate = new Date(System.currentTimeMillis());
 			String str = formatter.format(curDate);
-			Common.infoLog(runcase,"The screen save in /sdcard/GolukTest/"+runcase+"/"+str+".png");
+			Common.infoLog(runcase,"截图存储在 /sdcard/GolukTest/"+runcase+"/"+str+".png");
 			Common.takeScreen(in, runcase,str);
 			String s=null;
-			s=Common.checkFailReason(in, e.getMessage());
+			s=Common.checkFailReason(runcase,in, e.getMessage());
 			Common.errorLog(runcase,s);
 			Common.failcase(runcase);
 			Common.startLog(runcase,"*****End to run "+runcase+" *****");
